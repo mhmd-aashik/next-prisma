@@ -20,7 +20,7 @@ const Page = async () => {
             name={employee.Name!}
             position={employee.Position}
             skills={employee.SkillSet!}
-            available={employee.AvailabilityStatus}
+            available={employee.AvailabilityStatus!}
           />
         ))}
       </div>
