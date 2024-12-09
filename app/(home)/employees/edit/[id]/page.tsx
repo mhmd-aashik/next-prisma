@@ -6,6 +6,8 @@ const EditEmployee = async ({ params }: { params: { id: number } }) => {
   const id = params.id;
   const signledata = await getEmployeeById(Number(id));
 
+  console.log(signledata, "signledata");
+
   return (
     <div className="flex flex-col items-center justify-start mt-20 w-full h-screen">
       <div>

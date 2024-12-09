@@ -3,6 +3,10 @@ import { getAllEmployee } from "@/lib/actions/employee.action";
 import Link from "next/link";
 import React from "react";
 
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
+export const dynamic = "force-dynamic";
+
 const Page = async () => {
   const employeeData = await getAllEmployee();
 
