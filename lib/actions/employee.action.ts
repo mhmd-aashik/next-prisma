@@ -6,6 +6,9 @@ import { revalidatePath } from "next/cache";
 
 export const getAllEmployee = async () => {
   const getEmployee = await prisma.employees.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
     select: {
       EmployeeID: true,
       Name: true,

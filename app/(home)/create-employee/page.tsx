@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-// import { useRouter } from "next/navigation";
+import { useRouter, useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/employee.action";
 const FormSchema = z.object({
   name: z.string().min(3),
@@ -25,7 +25,7 @@ const FormSchema = z.object({
 });
 
 const CreateEmploee = () => {
-  // const router = useRouter();
+  const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -39,14 +39,13 @@ const CreateEmploee = () => {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
       await createUser({
-        
         Name: data.name,
         Position: data.position,
         SkillSet: data.skillset,
         AvailabilityStatus: data.status || false,
       });
       form.reset();
-      // router.push("/employees");
+      router.push("/employees");
     } catch (error) {
       console.error(error);
     }
