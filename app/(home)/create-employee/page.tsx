@@ -39,6 +39,7 @@ const CreateEmploee = () => {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
       await createUser({
+        
         Name: data.name,
         Position: data.position,
         SkillSet: data.skillset,
