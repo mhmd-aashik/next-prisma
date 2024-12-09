@@ -6,6 +6,7 @@ export interface Employee {
   AvailabilityStatus: boolean;
   Tasks?: Task[];
   Schedule?: Schedule[];
+  path?: string;
 }
 
 export interface Machinery {

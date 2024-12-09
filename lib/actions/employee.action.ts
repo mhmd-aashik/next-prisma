@@ -64,10 +64,11 @@ export const updateUser = async (employee: Employee) => {
         AvailabilityStatus: employee.AvailabilityStatus,
       },
     });
+    revalidatePath(employee.path!);
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 export const deleteUser = async ({
   id,

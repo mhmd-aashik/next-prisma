@@ -16,8 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { updateUser } from "@/lib/actions/employee.action";
-import { useRouter } from "next/navigation";
-// import { createUser } from "@/lib/actions/employee.action";
+import { usePathname, useRouter } from "next/navigation";
 const FormSchema = z.object({
   name: z.string().min(3),
   position: z.string().min(3),
@@ -41,6 +40,7 @@ const EditEmployeeCard = ({
   status,
 }: EmployeeCardProps) => {
   const router = useRouter();
+  const pathname = usePathname();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -49,6 +49,7 @@ const EditEmployeeCard = ({
       skillset: skill,
       status,
     },
+
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -59,6 +60,7 @@ const EditEmployeeCard = ({
         Position: data.position,
         SkillSet: data.skillset,
         AvailabilityStatus: data.status || false,
+        path: pathname,
       });
       form.reset();
       router.push("/employees");
