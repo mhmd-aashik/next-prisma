@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useRouter, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/employee.action";
 const FormSchema = z.object({
   name: z.string().min(3),
