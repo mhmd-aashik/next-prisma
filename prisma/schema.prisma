@@ -9,7 +9,7 @@ generator client {
 }
 
 model Employees {
-  EmployeeID         Int      @id @default(autoincrement())
+  EmployeeID         Int      @id @unique @default(autoincrement())
   Name               String
   Position           String
   SkillSet           String?
@@ -21,7 +21,7 @@ model Employees {
 }
 
 model Machinery {
-  MachineID                     Int       @id @default(autoincrement())
+  MachineID                     Int       @id @unique @default(autoincrement())
   Type                          String
   MaintenanceStatus             String
   LastMaintenanceDate           DateTime?
@@ -32,7 +32,7 @@ model Machinery {
 }
 
 model MaintenanceSchedule {
-  MaintenanceID   Int      @id @default(autoincrement())
+  MaintenanceID   Int      @id @unique @default(autoincrement())
   MachineID       Int
   ScheduledDate   DateTime
   MaintenanceType String
@@ -43,7 +43,7 @@ model MaintenanceSchedule {
 }
 
 model Schedule {
-  ScheduleID         Int      @id @default(autoincrement())
+  ScheduleID         Int      @id @unique @default(autoincrement())
   EmployeeID         Int
   TaskID             Int
   ScheduledStartTime DateTime
@@ -55,7 +55,7 @@ model Schedule {
 }
 
 model Tasks {
-  TaskID             Int       @id @default(autoincrement())
+  TaskID             Int       @id @unique @default(autoincrement())
   TaskDescription    String?
   AssignedEmployeeID Int?
   SkillRequired      String?
