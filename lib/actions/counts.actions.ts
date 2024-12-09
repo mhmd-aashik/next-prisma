@@ -28,6 +28,20 @@ export const getMachinaryCount = async () => {
   }
 };
 
+export const totalAllTask = async () => {
+  try {
+    const getTask = await prisma.tasks.findMany({
+      select: {
+        TaskID: true,
+      },
+    });
+
+    return getTask.length;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const emploeeGraph = async () => {
   try {
     const getGraph = await prisma.employees.findMany({

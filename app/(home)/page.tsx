@@ -5,11 +5,13 @@ import {
   emploeeGraph,
   getAllEmploeeCount,
   getMachinaryCount,
+  totalAllTask,
 } from "@/lib/actions/counts.actions";
 
 export default async function Page() {
   const emploeeCount = await getAllEmploeeCount();
   const machineCount = await getMachinaryCount();
+  const taskCount = await totalAllTask();
 
   const empGraph = await emploeeGraph();
 
@@ -22,14 +24,14 @@ export default async function Page() {
           countData={emploeeCount!}
         />
         <EmployeeCount
-          name="Machinary"
-          title="Total Employees"
+          name="Machinaries"
+          title="Total Machinaries"
           countData={machineCount!}
         />
         <EmployeeCount
-          name="Machinary"
-          title="Total Employees"
-          countData={102}
+          name="Tasks"
+          title="Total Tasks"
+          countData={taskCount!}
         />
       </div>
       <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min">

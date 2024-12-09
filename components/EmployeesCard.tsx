@@ -1,5 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
+import { Button } from "./ui/button";
+import { deleteUser } from "@/lib/actions/employee.action";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 interface EmployeesCardProps {
   id: number;
@@ -11,10 +17,23 @@ interface EmployeesCardProps {
 
 const EmployeesCard = ({
   name,
+  id,
   position,
   skills,
   available,
 }: EmployeesCardProps) => {
+  const pathName = usePathname();
+
+  async function handleDeleteEmployee() {
+    try {
+      await deleteUser({
+        id,
+        path: pathName,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-gradient-to-r from-blue-100 to-blue-50 p-6 border border-blue-300">
       {/* Avatar and Name */}
@@ -40,7 +59,7 @@ const EmployeesCard = ({
       </div>
 
       {/* Availability Status */}
-      <div>
+      <div className="mb-4">
         <p
           className={`text-sm font-bold ${
             available ? "text-green-500" : "text-red-500"
@@ -48,6 +67,22 @@ const EmployeesCard = ({
         >
           {available ? "Available" : "Not Available"}
         </p>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex justify-end space-x-4 mt-4">
+        <Link
+          href={`/employees/edit/${id}`}
+          className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+        >
+          Edit
+        </Link>
+        <Button
+          onClick={handleDeleteEmployee}
+          className="px-4 py-2 bg-red-500 text-white text-sm font-semibold rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+        >
+          Delete
+        </Button>
       </div>
     </div>
   );

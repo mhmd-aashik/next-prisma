@@ -9,52 +9,61 @@ generator client {
 }
 
 model Employees {
-  EmployeeID         Int        @id @default(autoincrement())
-  Name               String?
+  EmployeeID         Int      @id @default(autoincrement())
+  Name               String
   Position           String
   SkillSet           String?
-  AvailabilityStatus Boolean    @default(false)
-  Tasks              Tasks[]    @relation("EmployeeTasks")
-  Schedule           Schedule[]
-  createdAt          DateTime   @default(now())
+  AvailabilityStatus Boolean
+  createdAt          DateTime @default(now())
+
+  Tasks    Tasks[]    @relation("AssignedTasks")
+  Schedule Schedule[]
 }
 
 model Machinery {
-  MachineID                     Int                   @id @default(autoincrement())
+  MachineID                     Int       @id @default(autoincrement())
   Type                          String
-  MaintenanceStatus             String                @db.VarChar(20)
+  MaintenanceStatus             String
   LastMaintenanceDate           DateTime?
-  PredictiveMaintenanceRequired Boolean               @default(false)
-  MaintenanceSchedule           MaintenanceSchedule[]
-}
+  PredictiveMaintenanceRequired Boolean   @default(false)
+  createdAt                     DateTime  @default(now())
 
-model Tasks {
-  TaskID             Int        @id @default(autoincrement())
-  TaskDescription    String?
-  AssignedEmployee   Employees? @relation("EmployeeTasks", fields: [AssignedEmployeeID], references: [EmployeeID])
-  AssignedEmployeeID Int?
-  SkillRequired      String?
-  Status             String     @db.VarChar(20)
-  ScheduledDate      DateTime?
-  DueDate            DateTime?
-  Schedule           Schedule[]
-}
-
-model Schedule {
-  ScheduleID         Int       @id @default(autoincrement())
-  Employee           Employees @relation(fields: [EmployeeID], references: [EmployeeID])
-  EmployeeID         Int
-  Task               Tasks     @relation(fields: [TaskID], references: [TaskID])
-  TaskID             Int
-  ScheduledStartTime DateTime
-  ScheduledEndTime   DateTime
+  MaintenanceSchedule MaintenanceSchedule[]
 }
 
 model MaintenanceSchedule {
-  MaintenanceID   Int       @id @default(autoincrement())
-  Machine         Machinery @relation(fields: [MachineID], references: [MachineID])
+  MaintenanceID   Int      @id @default(autoincrement())
   MachineID       Int
   ScheduledDate   DateTime
-  MaintenanceType String    @db.VarChar(20)
-  Status          String    @db.VarChar(20)
+  MaintenanceType String
+  Status          String
+  createdAt       DateTime @default(now())
+
+  Machinery Machinery @relation(fields: [MachineID], references: [MachineID], onDelete: Cascade)
+}
+
+model Schedule {
+  ScheduleID         Int      @id @default(autoincrement())
+  EmployeeID         Int
+  TaskID             Int
+  ScheduledStartTime DateTime
+  ScheduledEndTime   DateTime
+  createdAt          DateTime @default(now())
+
+  Employees Employees @relation(fields: [EmployeeID], references: [EmployeeID], onDelete: Cascade)
+  Tasks     Tasks     @relation(fields: [TaskID], references: [TaskID], onDelete: Cascade)
+}
+
+model Tasks {
+  TaskID             Int       @id @default(autoincrement())
+  TaskDescription    String?
+  AssignedEmployeeID Int?
+  SkillRequired      String?
+  Status             String
+  ScheduledDate      DateTime?
+  DueDate            DateTime?
+  createdAt          DateTime  @default(now())
+
+  Employees Employees? @relation("AssignedTasks", fields: [AssignedEmployeeID], references: [EmployeeID], onDelete: SetNull)
+  Schedule  Schedule[]
 }

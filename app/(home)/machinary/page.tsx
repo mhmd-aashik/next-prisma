@@ -5,8 +5,6 @@ import React from "react";
 const Page = async () => {
   const results = await getAllMachinary();
 
-  console.log(results, "results");
-
   return (
     <div>
       <div className="px-2 py-5">
@@ -16,7 +14,7 @@ const Page = async () => {
         {results?.map((machine) => (
           <MachinaryCard
             key={machine.MachineID}
-            id={machine.MachineID}
+            id={Number(machine.MachineID)}
             type={machine.Type}
             status={machine.MaintenanceStatus}
             maintenance={machine.LastMaintenanceDate}

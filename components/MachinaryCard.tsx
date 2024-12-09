@@ -1,4 +1,8 @@
+"use client";
 import React from "react";
+import { Button } from "./ui/button";
+import { usePathname } from "next/navigation";
+import { deleteMachinary } from "@/lib/actions/machinary.actions";
 
 interface MachinaryCardProps {
   id: number;
@@ -16,6 +20,21 @@ const MachinaryCard = ({
   predictive,
 }: MachinaryCardProps) => {
   const formattedDate = new Date(maintenance!).toLocaleDateString();
+
+  const pathname = usePathname();
+
+  async function deleteMachine() {
+    try {
+      await deleteMachinary({
+        id,
+        path: pathname,
+      });
+
+      console.log("Machine Deleted");
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className="max-w-sm rounded-lg overflow-hidden shadow-lg bg-gradient-to-r from-gray-100 to-gray-50 p-6 border border-gray-300">
@@ -56,6 +75,19 @@ const MachinaryCard = ({
             ? "Predictive Maintenance Required"
             : "No Predictive Maintenance Required"}
         </p>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex justify-end space-x-4 mt-4">
+        <Button className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+          Edit
+        </Button>
+        <Button
+          onClick={deleteMachine}
+          className="px-4 py-2 bg-red-500 text-white text-sm font-semibold rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+        >
+          Delete
+        </Button>
       </div>
     </div>
   );

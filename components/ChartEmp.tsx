@@ -55,7 +55,6 @@ export function ChartEmp({
     }
   });
 
-  console.log(monthCounts, "monthCounts");
   return (
     <Card>
       <CardHeader>
