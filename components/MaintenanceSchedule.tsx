@@ -2,7 +2,7 @@ import React from "react";
 
 interface MaintenanceScheduleCardProps {
   id: number;
-  machineId: number;
+  machineId: string;
   scheduledDate: Date;
   maintenanceType: string;
   status: string;
