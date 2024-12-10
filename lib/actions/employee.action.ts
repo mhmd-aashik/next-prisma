@@ -43,7 +43,7 @@ export const getEmployeeById = async (id: number) => {
 
 export const createUser = async (emploee: Employee) => {
   try {
-    await prisma.employees.create({
+    const dat = await prisma.employees.create({
       data: {
         Name: emploee.Name,
         Position: emploee.Position,
@@ -51,6 +51,8 @@ export const createUser = async (emploee: Employee) => {
         AvailabilityStatus: emploee.AvailabilityStatus,
       },
     });
+    console.log(dat);
+    revalidatePath(emploee.path!);
   } catch (error) {
     console.error(error);
   }

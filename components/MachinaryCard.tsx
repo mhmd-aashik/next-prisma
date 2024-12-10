@@ -3,12 +3,13 @@ import React from "react";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
 import { deleteMachinary } from "@/lib/actions/machinary.actions";
+import Link from "next/link";
 
 interface MachinaryCardProps {
-  id: number;
+  id: string;
   type: string;
-  status: string;
-  maintenance: Date | null;
+  status?: string;
+  maintenance: Date;
   predictive: boolean;
 }
 
@@ -79,9 +80,12 @@ const MachinaryCard = ({
 
       {/* Action Buttons */}
       <div className="flex justify-end space-x-4 mt-4">
-        <Button className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+        <Link
+          href={`/machinary/edit/${id}`}
+          className="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+        >
           Edit
-        </Button>
+        </Link>
         <Button
           onClick={deleteMachine}
           className="px-4 py-2 bg-red-500 text-white text-sm font-semibold rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"

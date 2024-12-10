@@ -6,16 +6,17 @@ export interface Employee {
   AvailabilityStatus: boolean;
   Tasks?: Task[];
   Schedule?: Schedule[];
-  path?: string;
+  path: string;
 }
 
 export interface Machinery {
-  MachineID: number;
+  MachineID?: string;
   Type: string;
   MaintenanceStatus: string;
   LastMaintenanceDate?: Date;
   PredictiveMaintenanceRequired: boolean;
   MaintenanceSchedule?: MaintenanceSchedule[];
+  path?: string;
 }
 
 export interface Task {

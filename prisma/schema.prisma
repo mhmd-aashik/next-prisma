@@ -21,7 +21,7 @@ model Employees {
 }
 
 model Machinery {
-  MachineID                     Int       @id @unique @default(autoincrement())
+  MachineID                     String       @id @unique @default(uuid())
   Type                          String
   MaintenanceStatus             String
   LastMaintenanceDate           DateTime?
@@ -33,7 +33,7 @@ model Machinery {
 
 model MaintenanceSchedule {
   MaintenanceID   Int      @id @unique @default(autoincrement())
-  MachineID       Int
+  MachineID       String
   ScheduledDate   DateTime
   MaintenanceType String
   Status          String
